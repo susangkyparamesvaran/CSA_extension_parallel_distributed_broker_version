@@ -198,7 +198,7 @@ func main() {
 		return
 	}
 
-	listener, err := net.Listen("tcp4", "90.0.0.0:8040")
+	listener, err := net.Listen("tcp4", "0.0.0.0:8040")
 	if err != nil {
 		fmt.Println("Error starting listener:", err)
 		os.Exit(1)
