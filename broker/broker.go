@@ -185,7 +185,8 @@ func main() {
 
 	broker := &Broker{
 		workerAddresses: []string{
-			"54.209.189.255:8030",
+			"44.211.98.86:8030",
+			"3.236.245.14:8030",
 		},
 	}
 
@@ -197,7 +198,7 @@ func main() {
 		return
 	}
 
-	listener, err := net.Listen("tcp4", "0.0.0.0:8040")
+	listener, err := net.Listen("tcp4", "90.0.0.0:8040")
 	if err != nil {
 		fmt.Println("Error starting listener:", err)
 		os.Exit(1)
