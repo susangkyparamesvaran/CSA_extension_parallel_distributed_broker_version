@@ -42,7 +42,7 @@ func (e *GOLWorker) ProcessSection(req gol.SectionRequest, res *gol.SectionRespo
 
 	// channels to send work and recieve work in parallel
 	jobChan := make(chan threadJob)
-	resultChan := make(chan threadResult)
+	resultChan := make(chan threadResult, p.Threads)
 
 	// split the rows assigned to a worker between the threads
 	threadSections := assignRows(rows, p.Threads)
@@ -74,9 +74,9 @@ func (e *GOLWorker) ProcessSection(req gol.SectionRequest, res *gol.SectionRespo
 	// build correct new section of world
 	updatedSection := make([][]byte, rows)
 	for _, result := range results {
-		numRows := result.startY - startY
+		offset := result.startY - startY
 		for i, row := range result.worldSection {
-			updatedSection[numRows+i] = row
+			updatedSection[offset+i] = row
 		}
 	}
 

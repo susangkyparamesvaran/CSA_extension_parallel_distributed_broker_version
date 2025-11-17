@@ -13,7 +13,6 @@ import (
 // can use to tell us how many workers we have and then split up the image based on that
 type Broker struct {
 	workerAddresses []string
-	turn            int
 	alive           int
 }
 
@@ -52,20 +51,6 @@ func assignSections(height, workers int) []section {
 		start = end
 	}
 	return sections
-}
-
-// function to count the number of alive cells
-func countAlive(world [][]byte) int {
-	count := 0
-	for y := range world {
-		for x := range world[y] {
-			if world[y][x] == 255 {
-				count++
-			}
-		}
-	}
-
-	return count
 }
 
 // one iteration of the game using all workers
@@ -145,9 +130,6 @@ func (broker *Broker) ProcessSection(req gol.BrokerRequest, res *gol.BrokerRespo
 			newWorld[result.start+i] = row
 		}
 	}
-
-	broker.turn++
-	broker.alive = countAlive(newWorld)
 
 	res.World = newWorld
 	return nil
